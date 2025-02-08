@@ -48,6 +48,38 @@ class TestTextNode(unittest.TestCase):
         check_leaf = LeafNode("img", "", {"src": "www.example.com/img.jpg", "alt": "Description"})
         self.assertEqual(str(hnode), str(check_leaf))
 
+    def test_split_nodes_delimiter(self):
+        tnode = TextNode("This is text with a `code block` word", TextType.TEXT)
+        new_nodes = split_nodes_delimiter([tnode], "`", TextType.CODE)
+        self.assertEqual(new_nodes, [
+            TextNode("This is text with a ", TextType.TEXT),
+            TextNode("code block", TextType.CODE),
+            TextNode(" word", TextType.TEXT),
+        ])
+
+    def test_split_nodes_delimiter2(self):
+        tnode = TextNode("**This** is text with a **BOLD** word", TextType.TEXT)
+        new_nodes = split_nodes_delimiter([tnode], "**", TextType.BOLD)
+        self.assertEqual(new_nodes, [
+            TextNode("This", TextType.BOLD),
+            TextNode(" is text with a ", TextType.TEXT),
+            TextNode("BOLD", TextType.BOLD),
+            TextNode(" word", TextType.TEXT),
+        ])
+
+    def test_split_nodes_delimiter3(self):
+        tnode = TextNode("This is text with a `code block` word", TextType.TEXT)
+        new_nodes = split_nodes_delimiter([tnode], "`", TextType.CODE)
+        self.assertEqual(new_nodes, [
+            TextNode("This is text with a ", TextType.TEXT),
+            TextNode("code block", TextType.CODE),
+            TextNode(" word", TextType.TEXT),
+        ])
+
+if __name__ == "__main__":
+    unittest.main()
+
+
 '''
 class TestTextNodeToHTMLNode(unittest.TestCase):
     def test_text(self):
@@ -72,6 +104,3 @@ class TestTextNodeToHTMLNode(unittest.TestCase):
         self.assertEqual(html_node.tag, "b")
         self.assertEqual(html_node.value, "This is bold")
 '''
-
-if __name__ == "__main__":
-    unittest.main()
