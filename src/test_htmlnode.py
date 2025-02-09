@@ -7,14 +7,15 @@ class TestHTMLNode(unittest.TestCase):
     def test_eq(self):
         node = HTMLNode("a", "this is the text", {"href": "https://www.google.com"})
         node.to_html
+
     
     def test_props_toHTML(self):
         node = HTMLNode("a", "this is the text", {"href": "https://www.google.com"})
-        print(node.props_to_html)
+        #print(node.props_to_html)
 
     def test_Neq2(self):
         node = HTMLNode("a", "this is the text", {"href": "https://www.google.com"})
-        print(node.__repr__)
+        #print(node.__repr__)
     
     def test_to_html_props(self):
         node = HTMLNode(
