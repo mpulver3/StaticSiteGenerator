@@ -88,7 +88,6 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
             result_nodes.extend(sub_list)
     return result_nodes
 
-
 def split_nodes_image(old_nodes):
     list_of_new_nodes = []
     for old_node in old_nodes:
@@ -118,11 +117,12 @@ def split_nodes_image(old_nodes):
             if parts[1] != "":
                 sub_list.extend(inner(parts[1]))
             return sub_list
+        if old_node.text_type != TextType.TEXT:
+            list_of_new_nodes.extend([old_node])
+            continue
         list_of_new_nodes.extend(inner(old_node.text))
     return list_of_new_nodes
-
-
-     
+  
 def split_nodes_link(old_nodes):
     list_of_new_nodes = []
     for old_node in old_nodes:
@@ -152,11 +152,21 @@ def split_nodes_link(old_nodes):
             if parts[1] != "":
                 sub_list.extend(inner(parts[1]))
             return sub_list
+        if old_node.text_type != TextType.TEXT:
+            list_of_new_nodes.extend([old_node])
+            continue
         list_of_new_nodes.extend(inner(old_node.text))
     return list_of_new_nodes
 
-
-
+#Plain text (markdown) to list of Textnode obj
+def text_to_textnodes(text):
+    node = [TextNode(text, TextType.TEXT)]
+    nodes = split_nodes_delimiter(node, "**", TextType.BOLD)
+    nodes = split_nodes_delimiter(nodes, "*", TextType.ITALIC)
+    nodes = split_nodes_delimiter(nodes, "`", TextType.CODE)
+    nodes = split_nodes_image(nodes)
+    nodes = split_nodes_link(nodes)
+    return nodes
 
 
 
