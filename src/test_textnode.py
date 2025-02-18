@@ -225,7 +225,7 @@ class TestTextNode(unittest.TestCase):
 
 
     def test_text_to_textnodes(self):
-        text = 
+        text = "This is **text** with an *italic* word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
         self.assertListEqual(text_to_textnodes(text), [
             TextNode("This is ", TextType.TEXT),
             TextNode("text", TextType.BOLD),
