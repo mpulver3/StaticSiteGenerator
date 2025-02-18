@@ -171,7 +171,6 @@ def text_to_textnodes(text):
 
 
 
-
 '''
 
 text = "This is text with a ![rick roll](https://i.imgur.com/aKaOqIh.gif) and ![obi wan](https://i.imgur.com/fJRm4Vk.jpeg)"
