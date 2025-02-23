@@ -19,6 +19,14 @@ def markdown_to_blocks(markdown):
             new_list.append(s.strip("\n"))
     return new_list
 
+def extract_title(markdown):
+    block_list = markdown_to_blocks(markdown)
+    for block in block_list:
+        if block[0] == '#' and block[1] != '#':
+            return block[1:]
+    
+
+
 def block_to_block_type(block):
     if block.startswith(("# ", "## ", "### ", "#### ", "##### ", "###### ")):
         return BlockType.HEADING
@@ -47,7 +55,6 @@ def block_to_block_type(block):
         return BlockType.PARAGRAPH
     else: 
         return BlockType.PARAGRAPH
-
 
 def markdown_to_html_node(markdown):
     blocks = markdown_to_blocks(markdown)
